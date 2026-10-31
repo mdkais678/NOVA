@@ -1,13 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, type MotionProps } from "framer-motion";
 import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, ChevronDown, CirclePlay, Menu, Sparkles, Zap } from "lucide-react";
 import { useState } from "react";
-
-const rise = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
-};
 
 function DashboardPreview() {
   return (
@@ -29,7 +24,7 @@ function DashboardPreview() {
             <div className="side-pill"><span className="dot purple" /> Design team</div>
             <div className="side-pill"><span className="dot green" /> Marketing</div>
           </aside>
-          <main className="dash-main">
+          <div className="dash-main">
             <div className="dash-heading">
               <div><div className="eyebrow">MONDAY, OCTOBER 26</div><h3>Good morning, Jamie <span>✦</span></h3><p>Here's what's happening with your team today.</p></div>
               <button className="dash-button">＋ New project</button>
@@ -53,7 +48,7 @@ function DashboardPreview() {
                 <div className="chart-x"><span>Oct 1</span><span>Oct 7</span><span>Oct 14</span><span>Oct 21</span><span>Oct 30</span></div>
               </div>
             </div>
-          </main>
+          </div>
         </div>
       </motion.div>
       <motion.div className="float-card float-one" animate={{ y: [0, -9, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}><span className="float-icon"><Check size={15}/></span><div><b>Milestone reached!</b><small>Website redesign · just now</small></div></motion.div>
@@ -65,15 +60,14 @@ function DashboardPreview() {
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
   const reduceMotion = useReducedMotion();
- const reveal = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { 
-    duration: 0.8, 
-    ease: "easeOut" // <-- String transition
-  }
-};
-}
+  const reveal: MotionProps = reduceMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.8, ease: "easeOut" }
+      };
+
   return (
     <main>
       <nav className="navbar container">
